@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Engineering Conversion</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 {
+            color: #007BFF;
+            margin: 5px 0 0;
+            /*center text*/
+            text-align: center;
+            /*show on top of box*/
+            padding: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        input[type=number] {
+            width: 100px;
+            padding: 5px;
+        }
+
+        select {
+            width: 100px;
+            padding: 5px;
+        }
+
+        select, input {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border: 1px solid #007BFF;
+        }
+
+        #conversionType {
+            width: 200px;
+            padding: 10px;
+            margin-left: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            font-weight: bold;
+            background-color: #fff;
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        #conversionType:focus {
+            outline: none;
+        }
+
+        #conversionType option {
+            font-weight: normal;
+        }
+
+        #lengthConversion, #weightConversion, #temperatureConversion, #pressureConversion, #powerConversion {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #lengthConversion select, #weightConversion select, #temperatureConversion select, #pressureConversion select, #powerConversion select {
+            width: 150px;
+        }
+
+        #lengthConversion input[type=number], #weightConversion input[type=number], #temperatureConversion input[type=number], #pressureConversion input[type=number], #powerConversion input[type=number] {
+            width: 150px;
+        }
+
+        #lengthConversion, #weightConversion, #temperatureConversion, #pressureConversion, #powerConversion {
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            /* offset box right left 20px*/
+            box-sizing: border-box;
+            /* padding and border inside the box */
+            margin: 20px auto;
+            /* center the box */
+            width: 500px;
+            /* width of the box */
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>Unit Conversion</h1>
+<select id="conversionType">
+    <option value="length">Length</option>
+    <option value="weight">Weight</option>
+    <option value="temperature">Temperature</option>
+    <option value="pressure">Pressure</option> <!-- Add Pressure -->
+    <option value="power">Power</option> <!-- Add Power -->
+</select>
+
+<div id="lengthConversion" style="display: none;">
+    <h2>Length Conversion:</h2>
+    <label for="lengthFrom">From:</label>
+    <input type="number" id="lengthFrom">
+    <select id="lengthFromUnit">
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+        <option value="in">in</option>
+        <option value="ft">ft</option>
+        <option value="mm">mm</option> <!-- Add Millimeters -->
+        <option value="yd">yd</option> <!-- Add Yards -->
+    </select>
+    <br>
+    <label for="lengthTo">To:</label>
+    <input type="number" id="lengthTo" disabled>
+    <select id="lengthToUnit">
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+        <option value="in">in</option>
+        <option value="ft">ft</option>
+        <option value="mm">mm</option> <!-- Add Millimeters -->
+        <option value="yd">yd</option> <!-- Add Yards -->
+    </select>
+</div>
+
+<div id="weightConversion" style="display: none;">
+    <h2>Weight Conversion:</h2>
+    <label for="weightFrom">From:</label>
+    <input type="number" id="weightFrom">
+    <select id="weightFromUnit">
+        <option value="g">g</option>
+        <option value="kg">kg</option>
+        <option value="lb">lb</option>
+        <option value="oz">oz</option>
+        <option value="mg">mg</option>
+        <option value="kgf">kgf</option>
+    </select>
+    <br>
+    <label for="weightTo">To:</label>
+    <input type="number" id="weightTo" disabled>
+    <select id="weightToUnit">
+        <option value="g">g</option>
+        <option value="kg">kg</option>
+        <option value="lb">lb</option>
+        <option value="oz">oz</option>
+        <option value="mg">mg</option>
+        <option value="kgf">kgf</option>
+    </select>
+</div>
+
+<div id="temperatureConversion" style="display: none;">
+    <h2>Temperature Conversion:</h2>
+    <label for="tempFrom">From:</label>
+    <input type="number" id="tempFrom">
+    <select id="tempFromUnit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+    </select>
+    <br>
+    <label for="tempTo">To:</label>
+    <input type="number" id="tempTo" disabled>
+    <select id="tempToUnit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+    </select>
+</div>
+
+<div id="pressureConversion" style="display: none;">
+    <h2>Pressure Conversion:</h2>
+    <label for="pressureFrom">From:</label>
+    <input type="number" id="pressureFrom">
+    <select id="pressureFromUnit">
+        <option value="pa">Pa</option>
+        <option value="bar">bar</option>
+        <option value="psi">psi</option>
+    </select>
+    <br>
+    <label for="pressureTo">To:</label>
+    <input type="number" id="pressureTo" disabled>
+    <select id="pressureToUnit">
+        <option value="pa">Pa</option>
+        <option value="kpa">kPa</option>
+        <option value="bar">bar</option>
+        <option value="psi">psi</option>
+    </select>
+</div>
+
+<div id="powerConversion" style="display: none;">
+    <h2>Power Conversion:</h2>
+    <label for="powerFrom">From:</label>
+    <input type="number" id="powerFrom">
+    <select id="powerFromUnit">
+        <option value="w">Watts</option>
+        <option value="kw">Kilowatts</option>
+        <option value="hp">Horsepower</option>
+        <option value="btu">BTUs per Hour</option>
+    </select>
+    <br>
+    <label for="powerTo">To:</label>
+    <input type="number" id="powerTo" disabled>
+    <select id="powerToUnit">
+        <option value="w">Watts</option>
+        <option value="kw">Kilowatts</option>
+        <option value="hp">Horsepower</option>
+        <option value="btu">BTUs per Hour</option>
+    </select>
+</div>
+
+<script>
+    //set default conversion type length and show length conversion
+    document.getElementById("conversionType").value = "length";
+    document.getElementById("lengthConversion").style.display = "block";
+    //add event listener to conversion type
+    document.getElementById("conversionType").addEventListener("change", function () {
+        //get conversion type
+        var conversionType = document.getElementById("conversionType").value;
+        //hide all conversion divs
+        document.getElementById("lengthConversion").style.display = "none";
+        document.getElementById("weightConversion").style.display = "none";
+        document.getElementById("temperatureConversion").style.display = "none";
+        document.getElementById("pressureConversion").style.display = "none";
+        document.getElementById("powerConversion").style.display = "none";
+        //show selected conversion div
+        document.getElementById(conversionType + "Conversion").style.display = "block";
+    });
+
+    document.getElementById("lengthFrom").addEventListener("input", function () {
+        convertLength();
+    });
+
+    document.getElementById("lengthFromUnit").addEventListener("change", function () {
+        convertLength();
+    });
+
+    document.getElementById("lengthToUnit").addEventListener("change", function () {
+        convertLength();
+    });
+
+    document.getElementById("weightFrom").addEventListener("input", function () {
+        convertWeight();
+    });
+
+    document.getElementById("weightFromUnit").addEventListener("change", function () {
+        convertWeight();
+    });
+
+    document.getElementById("weightToUnit").addEventListener("change", function () {
+        convertWeight();
+    });
+
+    document.getElementById("tempFrom").addEventListener("input", function () {
+        convertTemperature();
+    });
+
+    document.getElementById("tempFromUnit").addEventListener("change", function () {
+        convertTemperature();
+    });
+
+    document.getElementById("tempToUnit").addEventListener("change", function () {
+        convertTemperature();
+    });
+
+    document.getElementById("pressureFrom").addEventListener("input", function () {
+        convertPressure();
+    });
+
+    document.getElementById("pressureFromUnit").addEventListener("change", function () {
+        convertPressure();
+    });
+
+    document.getElementById("pressureToUnit").addEventListener("change", function () {
+        convertPressure();
+    });
+
+    document.getElementById("powerFrom").addEventListener("input", function () {
+        convertPower();
+    });
+
+    document.getElementById("powerFromUnit").addEventListener("change", function () {
+        convertPower();
+    });
+
+    document.getElementById("powerToUnit").addEventListener("change", function () {
+        convertPower();
+    });
+
+    function convertLength() {
+        var lengthFrom = parseFloat(document.getElementById("lengthFrom").value);
+        var lengthFromUnit = document.getElementById("lengthFromUnit").value;
+        var lengthToUnit = document.getElementById("lengthToUnit").value;
+
+        var conversionFactors = {
+            cm: 1,
+            m: 0.01,
+            in: 0.393701,
+            ft: 0.0328084,
+            mm: 10, // Conversion factor for millimeters
+            yd: 0.0109361 // Conversion factor for yards
+        };
+
+        var result = lengthFrom * conversionFactors[lengthFromUnit] / conversionFactors[lengthToUnit];
+        document.getElementById("lengthTo").value = result.toFixed(2);
+    }
+
+    function convertWeight() {
+        var weightFrom = parseFloat(document.getElementById("weightFrom").value);
+        var weightFromUnit = document.getElementById("weightFromUnit").value;
+        var weightToUnit = document.getElementById("weightToUnit").value;
+
+        var conversionFactors = {
+            g: 1,
+            kg: 0.001,
+            lb: 0.00220462,
+            oz: 0.035274,
+            mg: 1000, // Conversion factor for milligrams
+            kgf: 0.101972 // Conversion factor for kilogram-force
+        };
+
+        var result = weightFrom * conversionFactors[weightFromUnit] / conversionFactors[weightToUnit];
+        document.getElementById("weightTo").value = result.toFixed(2);
+    }
+
+    function convertTemperature() {
+        var tempFrom = parseFloat(document.getElementById("tempFrom").value);
+        var tempFromUnit = document.getElementById("tempFromUnit").value;
+        var tempToUnit = document.getElementById("tempToUnit").value;
+
+        var result;
+
+        if (tempFromUnit === "C" && tempToUnit === "F") {
+            result = (tempFrom * 9 / 5) + 32;
+        } else if (tempFromUnit === "F" && tempToUnit === "C") {
+            result = (tempFrom - 32) * 5 / 9;
+        } else if (tempFromUnit === "C" && tempToUnit === "K") {
+            result = tempFrom + 273.15;
+        } else if (tempFromUnit === "K" && tempToUnit === "C") {
+            result = tempFrom - 273.15;
+        } else if (tempFromUnit === "F" && tempToUnit === "K") {
+            result = (tempFrom - 32) * 5 / 9 + 273.15;
+        } else if (tempFromUnit === "K" && tempToUnit === "F") {
+            result = (tempFrom - 273.15) * 9 / 5 + 32;
+        }
+
+        document.getElementById("tempTo").value = result.toFixed(2);
+    }
+
+    function convertPressure() {
+        var pressureFrom = parseFloat(document.getElementById("pressureFrom").value);
+        var pressureFromUnit = document.getElementById("pressureFromUnit").value;
+        var pressureToUnit = document.getElementById("pressureToUnit").value;
+
+        var conversionFactors = {
+            pa: 1, // Pascals
+            kpa: 0.001, // Kilopascals
+            bar: 0.00001, // Bars
+            psi: 0.00014503773773375 // Pounds per Square Inch
+        };
+
+        var result = pressureFrom * conversionFactors[pressureFromUnit] / conversionFactors[pressureToUnit];
+        document.getElementById("pressureTo").value = result.toFixed(2);
+    }
+
+    function convertPower() {
+        var powerFrom = parseFloat(document.getElementById("powerFrom").value);
+        var powerFromUnit = document.getElementById("powerFromUnit").value;
+        var powerToUnit = document.getElementById("powerToUnit").value;
+
+        var conversionFactors = {
+            w: 1, // Watts
+            kw: 0.001, // Kilowatts
+            hp: 0.00134102, // Horsepower
+            btu: 0.00094781712031332 // BTUs per Hour
+        };
+
+        var result = powerFrom * conversionFactors[powerFromUnit] / conversionFactors[powerToUnit];
+        document.getElementById("powerTo").value = result.toFixed(2);
+    }
+</script>
+</body>
+</html>
