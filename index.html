@@ -25,9 +25,7 @@
         h2 {
             color: #007BFF;
             margin: 5px 0 0;
-            /*center text*/
             text-align: center;
-            /*show on top of box*/
             padding: 10px;
         }
 
@@ -68,7 +66,6 @@
             background-color: #fff;
             color: #007BFF;
             cursor: pointer;
-            /*show center*/
             display: block;
             margin: 20px auto;
         }
@@ -98,14 +95,16 @@
 
         #lengthConversion, #weightConversion, #temperatureConversion, #pressureConversion, #powerConversion {
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-            /* offset box right left 20px*/
             box-sizing: border-box;
-            /* padding and border inside the box */
             margin: 20px auto;
-            /* center the box */
-            width: 500px;
-            /* width of the box */
+            width: 90%; /* Updated width to fit smaller screens */
             background-color: #fff;
+        }
+        @media (min-width: 768px) {
+            /* Apply styles for screens wider than 768px (typical tablets and larger) */
+            #lengthConversion, #weightConversion, #temperatureConversion, #pressureConversion, #powerConversion {
+                width: 500px; /* Use your previous width for larger screens */
+            }
         }
     </style>
 </head>
